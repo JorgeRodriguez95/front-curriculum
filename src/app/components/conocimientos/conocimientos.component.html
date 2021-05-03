@@ -1,1 +1,19 @@
-<p>conocimientos works!</p>
+<div class="my-2 text-left">
+    <button class="btn btn-rounded btn-primary"
+            type="button"
+            (click)="agregar()">Agregar Conocimiento</button>
+  </div>
+
+<div class="card border-success col-sm-6 text-center" *ngFor="let con of persona.conocimientos; let i=index">
+    <div class="card-header">Conocimientos {{ i + 1}}</div>
+    <div class="card-body text-success">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">{{ con.nombre }}</h4>
+            <p></p>
+            <hr>
+            <p class="mb-0"> {{ con.descripcion }}</p>
+          </div>
+        <button type="button" class="btn btn-warning m-1" (click)="modificar(con.id)">Editar</button>
+        <button type="button" class="btn btn-danger m-1" (click)="eliminar(con)">Eliminar</button>
+    </div>
+</div>

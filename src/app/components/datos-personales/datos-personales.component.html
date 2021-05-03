@@ -1,1 +1,44 @@
-<p>datos-personales works!</p>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="card border-success text-center">
+            <div class="card-header">{{titulo}}</div>
+            <button class="btn btn-primary" type="button" (click)="modificar()">Modificar</button>
+            <div class="card-body text-success">
+                <form [formGroup]="formPersona" (ngSubmit)="update()">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Nombre</label>
+                        <input type="email" class="form-control" formControlName="nombre" [readonly]="!editable">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Apellido</label>
+                        <input type="email" class="form-control" formControlName="apellido" [readonly]="!editable">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Segundo Apellido</label>
+                        <input type="email" class="form-control" formControlName="segundoApellido"
+                            [readonly]="!editable">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Correo</label>
+                        <input type="email" class="form-control" formControlName="correo" [readonly]="!editable">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Teléfono</label>
+                        <input type="email" class="form-control" formControlName="telefono" [readonly]="!editable">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Aceptar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Foto de perfil</label>
+            <input (change)="seleccionarFotoPerfil($event)" class="form-control" type="file" id="formFile">
+        </div>
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Foto de banner</label>
+            <input (change)="seleccionarFotoBanner($event)" class="form-control" type="file" id="formFile">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div *ngIf="persona.nombre">
+    <div class="row">
+        <img [src]="'http://localhost:8090/api/personas/uploads/imgBanner/' + persona.id" style="height: 100px;"> 
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <img [src]="'http://localhost:8090/api/personas/uploads/imgPerfil/' + persona.id" class="img-thumbnail rounded" width="300" height="400">
+            <h1 class="display-4">{{ persona.nombre }} {{ persona.apellido }} {{ persona.segundoApellido }} </h1>
+            <p class="lead">{{ persona.edad }} {{ persona.correo }} {{ persona.telefono }}</p>
+        </div>
+        <div class="col-sm-9">
+            <div class="card border-primary mb-3">
+                <div class="card-header">Experiencia</div>
+                <div class="card-body text-primary" *ngFor="let exp of persona.experiencias; let i=index">
+                    <h5 class="card-title">{{ exp.cargo }}</h5>
+                    <p class="card-text"> {{ exp.descripcion }}</p>
+                </div>
+            </div>
+            <div class="card border-primary mb-3">
+                <div class="card-header">Estudios</div>
+                <div class="card-body text-primary" *ngFor="let est of persona.estudios; let i=index">
+                    <h5 class="card-title">{{ est.nombreTitulo}}</h5>
+                    <p class="card-text"> {{ est.tipoEstudio }}</p>
+                </div>
+            </div>
+            <div class="card border-primary mb-3">
+                <div class="card-header">Conocimientos</div>
+                <div class="card-body text-primary" *ngFor="let con of persona.conocimientos; let i=index">
+                    <h5 class="card-title">{{ con.nombre}}</h5>
+                    <p class="card-text"> {{ con.descripcion }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!persona.nombre">
+    <h5>NO ENCONTRADO</h5>
+</div>

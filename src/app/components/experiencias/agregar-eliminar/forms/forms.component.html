@@ -1,0 +1,14 @@
+<div class="card border-success col-sm-6 text-center">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body text-success">
+        <form [formGroup]="formExperiencia" (ngSubmit)="guardarForm()">
+            <div class="mb-3">
+                <input type="email" class="form-control" formControlName="cargo">
+            </div>
+            <div class="mb-3">
+                <input type="email" class="form-control" formControlName="descripcion">
+            </div>
+            <button class="btn btn-primary" type="submit">Aceptar</button>
+        </form>
+    </div>
+</div>

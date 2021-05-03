@@ -1,23 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_USER')" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" href="#" routerLink="/datos-personales">Datos personales</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
+          <li *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_USER')" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" href="#" routerLink="/experiencias">Experiencia</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+          <li  *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_USER')" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" href="#" routerLink="/estudios">Estudios</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">asd</a>
+          <li  *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_USER')" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" href="#" routerLink="/conocimientos">Conocimientos</a>
           </li>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+
+          <li *ngIf="!authService.isAuthenticated()"><a [routerLink]="['/login']" class="btn btn-outline-primary">Iniciar Sesión</a></li>
+  
+          <li *ngIf="authService.isAuthenticated()"> Bienvenido {{ authService.usuario.username }} <button (click)="logout()" class="btn btn-outline-danger" type="submit">Cerrar Sesión</button></li>
+  
         </ul>
       </div>
     </div>
