@@ -16,4 +16,6 @@ export class Persona {
     experiencias: Experiencia[] = [];
     estudios: Estudio[] = [];
     conocimientos: Conocimiento[] = [];
+    fotoPerfilHashCode: string;
+    fotoBannerHashCode: string;
 }

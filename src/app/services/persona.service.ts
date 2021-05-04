@@ -15,6 +15,10 @@ export class PersonasService {
 
   constructor(private http: HttpClient) { }
 
+  getPersonaById(idPersona: number): Observable<Persona>{
+    return this.http.get<Persona>(`${ this.urlEndPoint }/${ idPersona }` );
+  }
+
   getPersonaByUsername(username: string): Observable<Persona> {
     return this.http.get<Persona>(`${ this.urlEndPoint }/buscar-username/${ username }` );
   }

@@ -1,11 +1,11 @@
 <div *ngIf="persona.nombre">
     <div class="row">
-        <img [src]="'http://localhost:8090/api/personas/uploads/imgBanner/' + persona.id" style="height: 100px;"> 
+        <img *ngIf="persona.fotoPerfilHashCode" [src]="'http://localhost:8090/api/personas/uploads/imgBanner/' + persona.id" style="height: 100px;"> 
     </div>
     <div class="row">
         <div class="col-sm-3">
             <div class="card" style="width: 18rem;">
-                <img [src]="'http://localhost:8090/api/personas/uploads/imgPerfil/' + persona.id" class="img-thumbnail rounded" width="300" height="400">
+                <img *ngIf="persona.fotoBannerHashCode" [src]="'http://localhost:8090/api/personas/uploads/imgPerfil/' + persona.id" class="img-thumbnail rounded" width="300" height="400">
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Nombre: {{ persona.nombre}} {{ persona.apellido }} </li>

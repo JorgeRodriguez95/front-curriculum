@@ -30,11 +30,14 @@ export class FormsEstudiosComponent implements OnInit {
   public idEstudio: number;
   public inicio: string = '';
   public fin: string = '';
+  public idPersona: number;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.idEstudio = params['id']
+      this.idEstudio = params['id'];
+      this.idPersona = +sessionStorage.getItem('idPersona');
       if (this.idEstudio) {
+        this.validarPermiso();
         this.titulo = 'Editar';
         this.estudioService.findEstudio(this.idEstudio).subscribe(response => {
           this.formularioEditar(response);
@@ -66,12 +69,12 @@ export class FormsEstudiosComponent implements OnInit {
         swal.fire('Modificado con éxito', 'Modificado con éxito', 'success');
         this.router.navigate(['/estudios/']);
       }, err =>{
-        console.log(err);
+        swal.fire('Error al modificar', 'Error del servidor', 'error');
+        console.log(err.error.errors);
       });
     } else {
       this.estudioService.create(this.estudio).subscribe(response => {
-        let idPersona = sessionStorage.getItem('idPersona');
-        this.personaService.addEstudio(+idPersona, response).subscribe(response => {
+        this.personaService.addEstudio(this.idPersona, response).subscribe(response => {
           swal.fire('Ingresado con éxito', 'Ingresado con éxito', 'success');
           this.router.navigate(['/estudios/']);
         });
@@ -90,6 +93,15 @@ export class FormsEstudiosComponent implements OnInit {
       desde: new FormControl(),
       hasta: new FormControl()
     })
+  }
+
+  validarPermiso() {
+    this.personaService.getPersonaById(this.idPersona).subscribe(response => {
+      let obj = response.estudios.find(e => e.id == this.idEstudio);
+      if (!obj) {
+        this.router.navigate(['/datos-personales']);
+      }
+    });
   }
 
 }

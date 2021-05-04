@@ -15,9 +15,8 @@
             <div class="mb-3">
                 <label>Nivel</label>
                 <select class="form-select" aria-label="Default select example" formControlName="nivel">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                  </select>
+                    <option *ngFor="let val of valores" [ngValue]="val"> {{val}}%</option>
+                </select>
             </div>
             <button class="btn btn-primary" type="submit">Aceptar</button>
         </form>

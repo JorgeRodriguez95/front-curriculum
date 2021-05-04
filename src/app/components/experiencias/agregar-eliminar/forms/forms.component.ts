@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Experiencia } from 'src/app/models/experiencia';
 import { ExperienciasService } from 'src/app/services/experiencia.service';
@@ -28,14 +28,17 @@ export class FormsComponent implements OnInit {
   public titulo: string = '';
   public fin: string = '';
   public inicio: string = '';
+  public idPersona: number;
 
   public experiencia: Experiencia = new Experiencia();
   public idExperiencia: number;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.idExperiencia = params['id']
+      this.idExperiencia = params['id'];
+      this.idPersona = +sessionStorage.getItem('idPersona');
       if (this.idExperiencia) {
+        this.validarPermiso();
         this.titulo = 'Editar';
         this.experienciaService.findExperiencia(this.idExperiencia).subscribe(response => {
           this.formularioEditar(response);
@@ -49,7 +52,7 @@ export class FormsComponent implements OnInit {
 
   formularioEditar(exp: Experiencia) {
     this.fin = this.dp.transform(exp.termino, 'yyyy-MM-dd');
-    this.inicio = this.dp.transform(exp.inicio, 'yyyy-MM-dd'); 
+    this.inicio = this.dp.transform(exp.inicio, 'yyyy-MM-dd');
     this.formExperiencia = new FormGroup({
       cargo: new FormControl(exp.cargo),
       descripcion: new FormControl(exp.descripcion),
@@ -67,14 +70,19 @@ export class FormsComponent implements OnInit {
       this.experienciaService.update(this.experiencia).subscribe(response => {
         swal.fire('Modificado con éxito', 'Modificado con éxito', 'success');
         this.router.navigate(['/experiencias/']);
+      }, err =>{
+        swal.fire('Error al modificar', 'Error del servidor', 'error');
+        console.log(err.error.errors);
       });
     } else {
       this.experienciaService.create(this.experiencia).subscribe(response => {
-        let idPersona = sessionStorage.getItem('idPersona');
-        this.personaService.addExperiencia(+idPersona, response).subscribe(response => {
+        this.personaService.addExperiencia(this.idPersona, response).subscribe(response => {
           swal.fire('Agregado con éxito', 'Agregado con éxito', 'success');
           this.router.navigate(['/experiencias/']);
         });
+      }, err =>{
+        swal.fire('Error al ingresar', 'Error del servidor', 'error');
+        console.log(err.error.errors);
       });
     }
   }
@@ -87,5 +95,14 @@ export class FormsComponent implements OnInit {
       inicio: new FormControl(),
       termino: new FormControl()
     })
+  }
+
+  validarPermiso() {
+    this.personaService.getPersonaById(this.idPersona).subscribe(response => {
+      let obj = response.experiencias.find(e => e.id == this.idExperiencia);
+      if (!obj) {
+        this.router.navigate(['/datos-personales']);
+      }
+    });
   }
 }

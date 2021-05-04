@@ -48,6 +48,8 @@ export class DatosPersonalesComponent implements OnInit {
         presentacion: new FormControl(this.persona.presentacion)
       });
       this.formPersona.disable();
+    }, err=> {
+      swal.fire('No se pudo cargar el usuario', 'Error del servidor', 'error');
     })
   }
 
@@ -61,6 +63,8 @@ export class DatosPersonalesComponent implements OnInit {
         this.persona = response;
         swal.fire('Modificado con éxito', 'Modificado con éxito', 'success');
         this.editable = false;
+      }, err =>{
+        swal.fire('No se pudo actualizar el registro', 'Error del servidor', 'error');
       })
     }
   }

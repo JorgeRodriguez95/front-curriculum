@@ -19,6 +19,7 @@ export class CurriculumComponent implements OnInit {
     this.inputPersona = this.route.snapshot.paramMap.get('persona');
     this.service.findPersona(this.inputPersona).subscribe(response => {
       this.persona = response;
+      console.log(this.persona);
     });
   }
 
