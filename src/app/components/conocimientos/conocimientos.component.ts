@@ -6,6 +6,7 @@ import { Persona } from 'src/app/models/persona';
 import { AuthService } from 'src/app/security/login/auth.service';
 import { ConocimientoService } from 'src/app/services/conocimiento.service';
 import { PersonasService } from 'src/app/services/persona.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-conocimientos',
@@ -38,6 +39,7 @@ export class ConocimientosComponent implements OnInit {
       this.conocimientoService.delete(con.id).subscribe(response =>{
         this.subscription = this.personaService.getPersonaByUsername(this.authService.usuario.username).subscribe(response => {
           this.persona = response;
+          swal.fire('Eliminado', 'Conocimiento eliminado', 'success');
         });
       })
     });

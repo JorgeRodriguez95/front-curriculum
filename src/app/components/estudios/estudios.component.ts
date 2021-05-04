@@ -6,6 +6,7 @@ import { Persona } from 'src/app/models/persona';
 import { AuthService } from 'src/app/security/login/auth.service';
 import { EstudioService } from 'src/app/services/estudio.service';
 import { PersonasService } from 'src/app/services/persona.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-estudios',
@@ -38,6 +39,7 @@ export class EstudiosComponent implements OnInit {
       this.estudioService.delete(est.id).subscribe(response =>{
         this.subscription = this.personaService.getPersonaByUsername(this.authService.usuario.username).subscribe(response => {
           this.persona = response;
+          swal.fire('Eliminado', 'Estudio eliminado', 'success');
         });
       })
     });
