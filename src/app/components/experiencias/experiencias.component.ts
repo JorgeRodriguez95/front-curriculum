@@ -6,6 +6,7 @@ import { Persona } from 'src/app/models/persona';
 import { AuthService } from 'src/app/security/login/auth.service';
 import { ExperienciasService } from 'src/app/services/experiencia.service';
 import { PersonasService } from 'src/app/services/persona.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-experiencias',
@@ -38,6 +39,7 @@ export class ExperienciasComponent implements OnInit {
       this.experienciaService.delete(exp.id).subscribe(response =>{
         this.subscription = this.personaService.getPersonaByUsername(this.authService.usuario.username).subscribe(response => {
           this.persona = response;
+          swal.fire('Eliminado con éxito', 'Eliminado con éxito', 'success');
         });
       })
     });

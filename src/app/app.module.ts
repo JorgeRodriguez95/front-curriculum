@@ -16,6 +16,7 @@ import { CurriculumComponent } from './components/curriculum/curriculum.componen
 import { FormsComponent } from './components/experiencias/agregar-eliminar/forms/forms.component';
 import { FormsEstudiosComponent } from './components/estudios/agregar-eliminar/forms-estudios/forms-estudios.component';
 import { FormsConocimientosComponent } from './components/conocimientos/agregar-eliminar/forms-conocimientos/forms-conocimientos.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { FormsConocimientosComponent } from './components/conocimientos/agregar-
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true
-  }],
+  }, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

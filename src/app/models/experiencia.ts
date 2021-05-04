@@ -4,4 +4,5 @@ export class Experiencia {
     descripcion: string;
     inicio: string;
     termino: string;
+    lugar: string;
 }

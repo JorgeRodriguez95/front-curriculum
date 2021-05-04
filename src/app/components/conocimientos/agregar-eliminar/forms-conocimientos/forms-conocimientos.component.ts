@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Conocimiento } from 'src/app/models/conocimiento';
 import { ConocimientoService } from 'src/app/services/conocimiento.service';
 import { PersonasService } from 'src/app/services/persona.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-forms-conocimientos',
@@ -17,7 +18,8 @@ export class FormsConocimientosComponent implements OnInit {
 
   public formConocimiento: FormGroup = new FormGroup({
     nombre: new FormControl(),
-    descripcion: new FormControl()
+    descripcion: new FormControl(),
+    nivel: new FormControl()
   });
 
   public conocimiento: Conocimiento = new Conocimiento();
@@ -42,7 +44,8 @@ export class FormsConocimientosComponent implements OnInit {
   formularioEditar(con: Conocimiento) {
     this.formConocimiento = new FormGroup({
       nombre: new FormControl(con.nombre),
-      descripcion: new FormControl(con.descripcion)
+      descripcion: new FormControl(con.descripcion),
+      nivel: new FormControl(con.nivel)
     })
   }
 
@@ -51,13 +54,16 @@ export class FormsConocimientosComponent implements OnInit {
     if (this.idConocimiento) {
       this.conocimiento.id = this.idConocimiento;
       this.conocimientoService.update(this.conocimiento).subscribe(response => {
+        swal.fire('Modificado con éxito', 'Modificado con éxito', 'success');
         this.router.navigate(['/conocimientos/']);
+      }, err =>{
+        console.log(err);
       });
     } else {
-      console.log('guardarasdad');
       this.conocimientoService.create(this.conocimiento).subscribe(response => {
         let idPersona = sessionStorage.getItem('idPersona');
         this.personaService.addConocimiento(+idPersona, response).subscribe(response => {
+          swal.fire('Ingresado con éxito', 'Ingresado con éxito', 'success');
           this.router.navigate(['/conocimientos/']);
         });
       });
@@ -67,7 +73,8 @@ export class FormsConocimientosComponent implements OnInit {
   formularioCrear() {
     this.formConocimiento = new FormGroup({
       nombre: new FormControl(),
-      descripcion: new FormControl()
+      descripcion: new FormControl(),
+      nivel: new FormControl()
     })
   }
 

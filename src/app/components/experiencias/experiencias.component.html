@@ -1,19 +1,18 @@
 <div class="my-2 text-left">
-    <button class="btn btn-rounded btn-primary"
-            type="button"
-            (click)="agregar()">Agregar Experiencia</button>
-  </div>
+  <button class="btn btn-rounded btn-primary" type="button" style="background-color: #03738C;" (click)="agregar()">Agregar Experiencia</button>
+</div>
 
-<div class="card border-success col-sm-6 text-center" *ngFor="let exp of persona.experiencias; let i=index">
-    <div class="card-header">Experiencias {{ i + 1}}</div>
-    <div class="card-body text-success">
-        <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">{{ exp.cargo }}</h4>
-            <p></p>
-            <hr>
-            <p class="mb-0"> {{ exp.descripcion }}</p>
-          </div>
-        <button type="button" class="btn btn-warning m-1" (click)="modificar(exp.id)">Editar</button>
-        <button type="button" class="btn btn-danger m-1" (click)="eliminar(exp)">Eliminar</button>
-    </div>
+<div class="card" *ngFor="let exp of persona.experiencias; let i=index">
+  <h5 class="card-header">Experiencia {{ i + 1}}</h5>
+  <div class="card-body">
+    <h4 class="alert-heading">Cargo: {{ exp.cargo }} ({{ exp.inicio | date: 'dd/MM/yyyy' }} - {{ exp.termino | date:
+      'dd/MM/yyyy' }}) - {{ exp.lugar }}</h4>
+    <hr>
+    <p>Funciones</p>
+    <p class="mb-0"> {{ exp.descripcion }}</p>
+  </div>
+  <div>
+    <button type="button" class="btn btn-warning m-1" style="background-color: #72DBF2;" (click)="modificar(exp.id)">Editar</button>
+    <button type="button" class="btn btn-danger m-1" (click)="eliminar(exp)">Eliminar</button>
+  </div>
 </div>

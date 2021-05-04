@@ -51,4 +51,11 @@ export class PersonasService {
     return this.http.put<Persona>(`${ this.urlEndPoint }/${ personaId }/eliminar-conocimiento`, conocimiento);
   }
 
+  addFoto(archivo: File, id: number, tipo: string){
+    const formData = new FormData();
+    formData.append('archivo', archivo);
+    formData.append('tipo', tipo);
+    return this.http.put<Persona>(`${ this.urlEndPoint }/upload/${ id }`, formData)
+  }
+
 }

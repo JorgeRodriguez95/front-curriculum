@@ -13,16 +13,16 @@ import { RoleGuard } from './security/guards/role.guard';
 import { LoginComponent } from './security/login/login.component';
 
 const routes: Routes = [
-  { path: 'datos-personales', component: DatosPersonalesComponent, canActivate: [AuthGuard] },
-  { path: 'experiencias', component: ExperienciasComponent, canActivate: [AuthGuard] },
+  { path: 'datos-personales', component: DatosPersonalesComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'} },
+  { path: 'experiencias', component: ExperienciasComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'} },
   { path: 'experiencias/agregar/:id', component: FormsComponent },
   { path: 'experiencias/agregar', component: FormsComponent },
-  { path: 'estudios', component: EstudiosComponent, canActivate: [AuthGuard] },
+  { path: 'estudios', component: EstudiosComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'} },
   { path: 'estudios/agregar/:id', component: FormsEstudiosComponent },
   { path: 'estudios/agregar', component: FormsEstudiosComponent },
-  { path: 'conocimientos', component: ConocimientosComponent, canActivate: [AuthGuard] },
-  { path: 'conocimientos/agregar/:id', component: FormsConocimientosComponent, canActivate: [AuthGuard] },
-  { path: 'conocimientos/agregar', component: FormsConocimientosComponent, canActivate: [AuthGuard] },
+  { path: 'conocimientos', component: ConocimientosComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'} },
+  { path: 'conocimientos/agregar/:id', component: FormsConocimientosComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'} },
+  { path: 'conocimientos/agregar', component: FormsConocimientosComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'} },
   { path: 'login', component: LoginComponent },
   { path: ':persona', component: CurriculumComponent }
 ];

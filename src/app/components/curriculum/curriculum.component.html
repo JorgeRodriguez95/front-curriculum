@@ -4,11 +4,24 @@
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <img [src]="'http://localhost:8090/api/personas/uploads/imgPerfil/' + persona.id" class="img-thumbnail rounded" width="300" height="400">
-            <h1 class="display-4">{{ persona.nombre }} {{ persona.apellido }} {{ persona.segundoApellido }} </h1>
-            <p class="lead">{{ persona.edad }} {{ persona.correo }} {{ persona.telefono }}</p>
+            <div class="card" style="width: 18rem;">
+                <img [src]="'http://localhost:8090/api/personas/uploads/imgPerfil/' + persona.id" class="img-thumbnail rounded" width="300" height="400">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Nombre: {{ persona.nombre}} {{ persona.apellido }} </li>
+                        <li class="list-group-item">Correo: {{ persona.correo }}</li>
+                        <li class="list-group-item">Teléfono: {{ persona.telefono }}</li>
+                      </ul>
+                </div>
+              </div>
         </div>
         <div class="col-sm-9">
+            <div class="card border-primary mb-3">
+                <div class="card-header">Presentación</div>
+                <div class="card-body text-primary" *ngFor="let exp of persona.experiencias; let i=index">
+                    <p class="card-text"> {{ persona.presentacion }}</p>
+                </div>
+            </div>
             <div class="card border-primary mb-3">
                 <div class="card-header">Experiencia</div>
                 <div class="card-body text-primary" *ngFor="let exp of persona.experiencias; let i=index">

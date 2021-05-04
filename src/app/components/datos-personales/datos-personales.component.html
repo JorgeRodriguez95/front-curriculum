@@ -2,7 +2,7 @@
     <div class="col-sm-8">
         <div class="card border-success text-center">
             <div class="card-header">{{titulo}}</div>
-            <button class="btn btn-primary" type="button" (click)="modificar()">Modificar</button>
+            <button class="btn btn-primary" type="button" (click)="modificar()" style="background-color: #03738C;">Modificar</button>
             <div class="card-body text-success">
                 <form [formGroup]="formPersona" (ngSubmit)="update()">
                     <div class="mb-3">
@@ -26,7 +26,11 @@
                         <label for="exampleInputEmail1" class="form-label">Teléfono</label>
                         <input type="email" class="form-control" formControlName="telefono" [readonly]="!editable">
                     </div>
-                    <button class="btn btn-primary" type="submit">Aceptar</button>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Presentación</label>
+                        <textarea class="form-control" placeholder="Leave a comment here" formControlName="presentacion" style="height: 100px" [readonly]="!editable"></textarea>
+                    </div>
+                    <button class="btn btn-primary" type="submit" style="background-color: #03738C;">Aceptar</button>
                 </form>
             </div>
         </div>
@@ -35,10 +39,17 @@
         <div class="mb-3">
             <label for="formFile" class="form-label">Foto de perfil</label>
             <input (change)="seleccionarFotoPerfil($event)" class="form-control" type="file" id="formFile">
+            <button class="btn btn-primary" (click)="subirFoto('perfil')" type="button" style="background-color: #03738C;">Subir</button>
         </div>
         <div class="mb-3">
             <label for="formFile" class="form-label">Foto de banner</label>
             <input (change)="seleccionarFotoBanner($event)" class="form-control" type="file" id="formFile">
+            <button class="btn btn-primary" (click)="subirFoto('banner')" type="button" style="background-color: #03738C;">Subir</button>
         </div>
     </div>
+</div>
+<div class="row">
+   <div class="col-sm-3">
+    <button class="btn btn-primary" (click)="verCurriculum()" type="button" style="background-color: #03738C;">Ver mi Curriculum</button>
+   </div>
 </div>

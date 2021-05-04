@@ -3,10 +3,26 @@
     <div class="card-body text-success">
         <form [formGroup]="formEstudio" (ngSubmit)="guardarForm()">
             <div class="mb-3">
+                <label>Institución</label>
+                <input type="email" class="form-control" formControlName="institucion">
+            </div>
+            <div class="mb-3">
+                <label>Nombre Título</label>
                 <input type="email" class="form-control" formControlName="nombreTitulo">
             </div>
             <div class="mb-3">
+                <label>Tipo Estudio</label>
                 <input type="email" class="form-control" formControlName="tipoEstudio">
+            </div>
+            <div class="mb-3">
+                <label>Fecha de inicio</label>
+                <input type="date" class="form-control" formControlName="desde"
+                [value]="inicio | date:'yyyy-MM-dd'">
+            </div>
+            <div class="mb-3">
+                <label>Fecha término</label>
+                <input type="date" class="form-control" formControlName="hasta"
+                [value]="fin | date:'yyyy-MM-dd'">
             </div>
             <button class="btn btn-primary" type="submit">Aceptar</button>
         </form>

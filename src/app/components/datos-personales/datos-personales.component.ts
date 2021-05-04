@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Persona } from 'src/app/models/persona';
 import { AuthService } from 'src/app/security/login/auth.service';
 import { PersonasService } from 'src/app/services/persona.service';
@@ -12,7 +13,8 @@ import swal from 'sweetalert2';
 })
 export class DatosPersonalesComponent implements OnInit {
 
-  constructor(private service: PersonasService, private authService: AuthService) { }
+  constructor(private service: PersonasService, private authService: AuthService,
+    private router: Router) { }
 
   public persona: Persona = new Persona();
   public titulo: string = "Datos Personales";
@@ -21,13 +23,15 @@ export class DatosPersonalesComponent implements OnInit {
 
   private fotoPerfil: File;
   private fotoBanner: File;
+  private archivo: File;
 
   public formPersona: FormGroup = new FormGroup({
     nombre: new FormControl(),
     apellido: new FormControl(),
     segundoApellido: new FormControl(),
     correo: new FormControl(),
-    telefono: new FormControl()
+    telefono: new FormControl(),
+    presentacion: new FormControl()
   });
 
   ngOnInit(): void {
@@ -40,7 +44,8 @@ export class DatosPersonalesComponent implements OnInit {
         apellido: new FormControl(this.persona.apellido),
         segundoApellido: new FormControl(this.persona.segundoApellido),
         correo: new FormControl(this.persona.correo),
-        telefono: new FormControl(this.persona.telefono)
+        telefono: new FormControl(this.persona.telefono),
+        presentacion: new FormControl(this.persona.presentacion)
       });
       this.formPersona.disable();
     })
@@ -49,6 +54,8 @@ export class DatosPersonalesComponent implements OnInit {
   update() {
     if (this.editable) {
       this.persona = this.formPersona.value;
+      
+      console.log(this.persona);
       this.persona.id = this.idPersona;
       this.service.update(this.persona).subscribe(response => {
         this.persona = response;
@@ -68,8 +75,28 @@ export class DatosPersonalesComponent implements OnInit {
   }
 
   seleccionarFotoBanner(event) {
-    this.fotoPerfil = event.target.files[0];
+    this.fotoBanner = event.target.files[0];
     console.log(this.fotoPerfil);
+  }
+
+  verCurriculum(){
+    this.router.navigate(['/'+this.persona.nombre + '_' +this.persona.apellido]);
+  }
+
+  subirFoto(tipo: string){
+    if(tipo === 'perfil'){
+      this.archivo = this.fotoPerfil;
+    }
+    if(tipo === 'banner'){
+      this.archivo = this.fotoBanner;
+    }
+    if(this.archivo){
+      this.service.addFoto(this.archivo, this.idPersona, tipo).subscribe(response =>{
+        swal.fire('Foto de '+ tipo +' ingresada con éxito', 'Modificado con éxito', 'success');
+      })
+    }else{
+      swal.fire('No hay foto que subir', '', 'error');
+    }
   }
 
 }

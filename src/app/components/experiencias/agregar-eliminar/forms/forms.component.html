@@ -3,11 +3,27 @@
     <div class="card-body text-success">
         <form [formGroup]="formExperiencia" (ngSubmit)="guardarForm()">
             <div class="mb-3">
-                <input type="email" class="form-control" formControlName="cargo">
+                <label>Cargo</label>
+               <input type="text" class="form-control" formControlName="cargo">
             </div>
             <div class="mb-3">
-                <input type="email" class="form-control" formControlName="descripcion">
+                <label>Descripción</label>
+                <textarea class="form-control" placeholder="Leave a comment here" formControlName="descripcion" style="height: 100px"></textarea>
             </div>
+            <div class="mb-3">
+                <label>Lugar</label>
+                <input type="text" class="form-control" formControlName="lugar">
+             </div>
+             <div class="mb-3">
+                <label>Inicio</label>
+                <input type="date" class="form-control" formControlName="inicio"
+                [value]="inicio | date:'yyyy-MM-dd'">
+             </div>
+             <div class="mb-3">
+                <label>Termino</label>
+                <input type="date" class="form-control" formControlName="termino"
+                [value]="fin | date:'yyyy-MM-dd'">
+             </div>
             <button class="btn btn-primary" type="submit">Aceptar</button>
         </form>
     </div>

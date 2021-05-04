@@ -1,19 +1,16 @@
 <div class="my-2 text-left">
-    <button class="btn btn-rounded btn-primary"
-            type="button"
-            (click)="agregar()">Agregar Estudio</button>
-  </div>
+  <button class="btn btn-rounded btn-primary" type="button" style="background-color: #03738C;" (click)="agregar()">Agregar Estudio</button>
+</div>
 
-<div class="card border-success col-sm-6 text-center" *ngFor="let est of persona.estudios; let i=index">
-    <div class="card-header">Estudios {{ i + 1}}</div>
-    <div class="card-body text-success">
-        <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">{{ est.nombreTitulo }}</h4>
-            <p></p>
-            <hr>
-            <p class="mb-0"> {{ est.tipoEstudio }}</p>
-          </div>
-        <button type="button" class="btn btn-warning m-1" (click)="modificar(est.id)">Editar</button>
-        <button type="button" class="btn btn-danger m-1" (click)="eliminar(est)">Eliminar</button>
-    </div>
+<div class="card" *ngFor="let est of persona.estudios; let i=index">
+  <h5 class="card-header">Estudio {{ i + 1}}</h5>
+  <div class="card-body">
+    <h4>{{ est.nombreTitulo }} {{ est.desde | date: 'dd/MM/yyyy' }} - {{ est.hasta | date: 'dd/MM/yyyy' }} </h4>
+    <p>{{ est.institucion }}</p>
+    <p class="mb-0"> Tipo: {{ est.tipoEstudio }}</p>
+  </div>
+  <div>
+    <button type="button" class="btn btn-warning m-1" style="background-color: #72DBF2;" (click)="modificar(est.id)">Editar</button>
+    <button type="button" class="btn btn-danger m-1" (click)="eliminar(est)">Eliminar</button>
+  </div>
 </div>

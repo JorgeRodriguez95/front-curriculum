@@ -1,8 +1,9 @@
-<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#6C5D8C;">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_USER')" class="nav-item" routerLinkActive="active">
+          <li *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_USER')" class="nav-item" routerLinkActive="link-active"
+          [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link" href="#" routerLink="/datos-personales">Datos personales</a>
           </li>
           <li *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_USER')" class="nav-item" routerLinkActive="active">
@@ -19,7 +20,7 @@
 
           <li *ngIf="!authService.isAuthenticated()"><a [routerLink]="['/login']" class="btn btn-outline-primary">Iniciar Sesión</a></li>
   
-          <li *ngIf="authService.isAuthenticated()"> Bienvenido {{ authService.usuario.username }} <button (click)="logout()" class="btn btn-outline-danger" type="submit">Cerrar Sesión</button></li>
+          <li *ngIf="authService.isAuthenticated()" style=color:white;> Usuario en sesión: {{ authService.usuario.username }} <button (click)="logout()" class="btn btn-outline-danger" type="submit">Cerrar Sesión</button></li>
   
         </ul>
       </div>
